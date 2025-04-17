@@ -1,80 +1,198 @@
-import React, { useState } from 'react';
-import { View, Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import ApplianceModal from '../components/ApplianceModal'; // Import the appliance modal
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Image, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const WashingRoomScreen = () => {
+  const navigation = useNavigation();
+  const [selectedImage, setSelectedImage] = useState<any | null>(null);
 
-    const [modalVisible, setModalVisible] = useState(false); // so modalvisible is the variable itself, set____ is how you change it. What we set it equal to is the default value.
-    const [appliance, setAppliance] = useState('');
-    const [applianceInfoOne, setApplianceInfoOne] = useState('Nothing set yet...');
+  const imageMap: Record<string, any> = {
+    Washer: require('../assets/fridgepopup.png'),
+    Dryer: require('../assets/fridgepopup.png'),
+    'Ceiling Lamp': require('../assets/fridgepopup.png'),
+  };
 
-//     //a function to handle clicking an appliance
-    const handleApplianceClick = (applianceName: string) => {
-        setAppliance(applianceName);
-        setModalVisible(true); // so when we click on an appliance, open the modal.
-        
-
+  const handleApplianceClick = (applianceName: string) => {
+    const imageUrl = imageMap[applianceName];
+    if (imageUrl) {
+      setSelectedImage(imageUrl);
     }
+  };
 
-    return (
-        <View style={{flex: 1, flexDirection: 'column', position: 'relative'}}>
-            <Text>Washing Room</Text>
-            <Image 
-                source={require('../assets/search.png')}
-                style={{width: '100%', height: 300}}
-            />
-            <TouchableOpacity onPress={() => handleApplianceClick("Sink")} style={styles.touchableArea}>
-                <View style={styles.transparentOverlay} />
-            </TouchableOpacity>
-            <ApplianceModal 
-                visible={modalVisible}
-                appliance={appliance}
-                onClose={() => setModalVisible(false)}
-                input={applianceInfoOne}
-                setInput={setApplianceInfoOne}
-                
-            />
-            <Text>{`${applianceInfoOne}`}</Text>
+  const handleCloseImage = () => {
+    setSelectedImage(null);
+  };
+
+  const handleBack = () => {
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    } else {
+      navigation.navigate('HomeScreen');
+    }
+  };
+
+  const bounce1 = useRef(new Animated.Value(1)).current;
+  const bounce2 = useRef(new Animated.Value(1)).current;
+  const bounce3 = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    const animate = (val: Animated.Value) => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(val, { toValue: 1.2, duration: 600, useNativeDriver: true }),
+          Animated.timing(val, { toValue: 1, duration: 600, useNativeDriver: true }),
+        ])
+      ).start();
+    };
+    animate(bounce1);
+    animate(bounce2);
+    animate(bounce3);
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+        <Text style={styles.backText}>← Back</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.title}>Laundry Room</Text>
+
+      <View style={styles.laundryWrapper}>
+        <Image
+          source={require('../assets/laundryroom.png')}
+          style={styles.laundryImage}
+        />
+
+        <TouchableOpacity onPress={() => handleApplianceClick("Washer")} style={styles.washerTouchableArea}>
+          <View style={styles.transparentOverlay} />
+          <Animated.View style={[styles.circle, { transform: [{ scale: bounce1 }] }]} />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => handleApplianceClick("Dryer")} style={styles.dryerTouchableArea}>
+          <View style={styles.transparentOverlay} />
+          <Animated.View style={[styles.circle, { transform: [{ scale: bounce2 }] }]} />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => handleApplianceClick("Ceiling Lamp")} style={styles.lampTouchableArea}>
+          <View style={styles.transparentOverlay} />
+          <Animated.View style={[styles.circle, { transform: [{ scale: bounce3 }] }]} />
+        </TouchableOpacity>
+      </View>
+
+      {selectedImage && (
+        <View style={styles.popupContainer}>
+          <Image
+            source={selectedImage}
+            style={styles.popupImage}
+          />
+          <TouchableOpacity style={styles.closeButton} onPress={handleCloseImage}>
+            <Text style={styles.closeText}>X</Text>
+          </TouchableOpacity>
         </View>
-    );
-
-    //style={styles.touchableArea}
-    
-    //
-//  return ( // Why do we need a view? show waht happens if you dont have it. look into other options for your project: divs, safeareaviews are common. flex is really cool, but needs some more css learning.
-//         <View style={{flex: 1, flexDirection: 'column', position: 'relative'}}> 
-//             <Text> I am the kitchen screen! </Text>
-//             <View style={{position: 'relative'}}>
-//                 <Image 
-//                     source={require('../assets/splash-icon.png')}
-//                     style={{width: '100%', height: 300}}
-//                 />
-//                 
-//             </View>
-//             
-            
-            
-            
-//         </View>
-        
-
-//     );
+      )}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    touchableArea: {
-        position: 'absolute', //means im going to be positioning this always based on its parent. if there's no parent to judge based off of, its based on the entire screen.
-        top: 50,    // adjust this to place it over the right part
-        left: 100,  // adjust this as well
-        width: 100, // size of the clickable area
-        height: 50,
-        color: 'red'
-      },
-      transparentOverlay: {
-        flex: 1, 
-        backgroundColor: 'red'
-      },
-})
+  container: {
+    flex: 1,
+    backgroundColor: '#FDF8EC',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 45,
+    left: 10,
+    zIndex: 10,
+    padding: 10,
+  },
+  backText: {
+    fontSize: 18,
+    color: '#3E2C1D',
+    fontWeight: '500',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: '600',
+    color: '#3E2C1D',
+    position: 'absolute',
+    top: 90,
+    left: 20,
+  },
+  laundryWrapper: {
+    alignSelf: 'center',
+    width: 360,
+    height: 500,
+    position: 'relative',
+    top: 120,
+  },
+  laundryImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
+  },
+  washerTouchableArea: {
+    position: 'absolute',
+    top: 220,
+    left: 50,
+    width: 100,
+    height: 110,
+  },
+  dryerTouchableArea: {
+    position: 'absolute',
+    top: 200,
+    left: 150,
+    width: 60,
+    height: 110,
+  },
+  lampTouchableArea: {
+    position: 'absolute',
+    top: 140,
+    left: 210,
+    width: 60,
+    height: 40,
+  },
+  transparentOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'transparent',
+  },
+  circle: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: '#ffffff',
+    alignSelf: 'center',
+    marginTop: 5,
+  },
+  popupContainer: {
+    position: 'absolute',
+    top: 140,
+    left: 50,
+    zIndex: 20,
+    alignItems: 'flex-end',
+  },
+  popupImage: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: -10,
+    right: -10,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    width: 24,
+    height: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 2,
+  },
+  closeText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#3E2C1D',
+  },
+});
 
-
-export default WashingRoomScreen
+export default WashingRoomScreen;

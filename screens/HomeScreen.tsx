@@ -1,141 +1,99 @@
 import React from 'react';
-import { Text } from 'react-native'
-import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-
 const HomeScreen = () => {
-    //variables
-    // functions
-    //return - 
-    const navigation = useNavigation(); 
+  const navigation = useNavigation();
 
-    const handleRoomClick = (room: string) => { // room: string means we are expecting a parameter called room of type string. 
-        navigation.navigate(room); // so when we call this function in our code, we'll navigate to whatever screen that has a name that matches what we passed in
-    };
+  const handleRoomClick = (room: string) => {
+    navigation.navigate(room);
+  };
 
-    return (
-        <View>
-            {/* <Text>I am the homescreen!</Text> */}
-            {/* <TouchableOpacity onPress={() => handleRoomClick('KitchenScreen')}>
-                <Image source={require('../assets/search.png')} />
-            </TouchableOpacity> */}
-            <Text>Homescreen!</Text>
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Welcome to your Home</Text>
+      <Text style={styles.subtitle}>Tap to manage rooms & appliances</Text>
 
-            <Image 
-                source={require('../assets/home.png')}
-                style={{top: 180, width: '100%', height: 300, right: 10, resizeMode: 'contain'}}
-            />
+      <Image
+        source={require('../assets/home.png')}
+        style={styles.homeImage}
+      />
 
+      <TouchableOpacity onPress={() => handleRoomClick("KitchenScreen")} style={styles.kitchenTouchableArea}>
+        <View style={styles.transparentOverlay} />
+      </TouchableOpacity>
 
+      <TouchableOpacity onPress={() => handleRoomClick("LivingRoomScreen")} style={styles.livingroomTouchableArea}>
+        <View style={styles.transparentOverlay} />
+      </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => handleRoomClick("KitchenScreen")} style={styles.kitchenTouchableArea}>
-                <View style={styles.transparentOverlay} />
-            </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleRoomClick("WashingRoomScreen")} style={styles.washingroomTouchableArea}>
+        <View style={styles.transparentOverlay} />
+      </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => handleRoomClick("LivingRoomScreen")} style={styles.livingroomTouchableArea}>
-                <View style={styles.transparentOverlay} />
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => handleRoomClick("WashingRoomScreen")} style={styles.washingroomTouchableArea}>
-                <View style={styles.transparentOverlay} />
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => handleRoomClick("BedroomScreen")} style={styles.bedroomTouchableArea}>
-                <View style={styles.transparentOverlay} />
-            </TouchableOpacity>
-
-            {/* nav bar, mkae the 3 images show up in a row */}
-
-            <View style={styles.navBar}>
-                <Image 
-                    source={require('../assets/Component 18.png')}
-                    style={{width: '100%', height: 50, right: 170, resizeMode: 'contain'}}
-                />
-                <Image 
-                    source={require('../assets/Component 17.png')}
-                    style={{width: '100%', height: 50, top: 10, right: 100, resizeMode: 'contain'}}
-                />
-                <Image 
-                    source={require('../assets/Group.png')}
-                    style={{top: 180, width: '100%', height: 10, right: 10, resizeMode: 'contain'}}
-                />
-            </View>
-
-            
-        </View>
-        
-    )
-
-
-
-}
-//     const navigation = useNavigation(); // This is what allows us to pass information between screens.
-
-    
-
-//     return ( //what's inside of the return is what the page will display; everything above handles the logic of the page.
-//         <View>
-//             <Text> I am the homescreen! </Text>
-            
-
-
-//         </View>
-//     );
-// };
+      <TouchableOpacity onPress={() => handleRoomClick("BedroomScreen")} style={styles.bedroomTouchableArea}>
+        <View style={styles.transparentOverlay} />
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    navBar: {
-        position: 'absolute',
-        height: 100,
-        width: 600,
-        backgroundColor: '#CAD2AE',
-        left: '30%',
-        transform: [{ translateX: -150 }],
-        top: 50,
-        // move to the bottom of the screen
-        flexDirection: 'row',
-    alignItems: 'center', // optional: vertically center items
-    justifyContent: 'space-around', // optional: space items out evenly
-    },
-    kitchenTouchableArea: {
-        position: 'absolute', //means im going to be positioning this always based on its parent. if there's no parent to judge based off of, its based on the entire screen.
-        top: 350,    // adjust this to place it over the right part
-        left: 35,  // adjust this as well
-        width: 130, // size of the clickable area
-        height: 100,
-        color: 'red'
-      },
-      bedroomTouchableArea: {
-        position: 'absolute', //means im going to be positioning this always based on its parent. if there's no parent to judge based off of, its based on the entire screen.
-        top: 290,    // adjust this to place it over the right part
-        left: 170,  // adjust this as well
-        width: 150, // size of the clickable area
-        height: 80,
-        color: 'red'
-      },
-      livingroomTouchableArea: {
-        position: 'absolute', //means im going to be positioning this always based on its parent. if there's no parent to judge based off of, its based on the entire screen.
-        top: 380,    // adjust this to place it over the right part
-        left: 180,  // adjust this as well
-        width: 110, // size of the clickable area
-        height: 70,
-        color: 'red'
-      },
-      washingroomTouchableArea: {
-        position: 'absolute', //means im going to be positioning this always based on its parent. if there's no parent to judge based off of, its based on the entire screen.
-        top: 380,    // adjust this to place it over the right part
-        left: 315,  // adjust this as well
-        width: 40, // size of the clickable area
-        height: 60,
-        color: 'red'
-      },
-      
-      transparentOverlay: {
-        flex: 1, 
-        backgroundColor: 'red'
-      },
-})
-
+  container: {
+    flex: 1,
+    backgroundColor: '#FDF8EC',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: '600',
+    color: '#3E2C1D',
+    marginTop: 90, // +30
+    marginLeft: 20,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#3E2C1D',
+    marginTop: 15, // +30
+    marginLeft: 20,
+  },
+  homeImage: {
+    top: 80, // +30
+    width: '100%',
+    height: 300,
+    resizeMode: 'contain',
+  },
+  kitchenTouchableArea: {
+    position: 'absolute',
+    top: 380, // +30
+    left: 35,
+    width: 130,
+    height: 100,
+  },
+  bedroomTouchableArea: {
+    position: 'absolute',
+    top: 320, // +30
+    left: 170,
+    width: 150,
+    height: 80,
+  },
+  livingroomTouchableArea: {
+    position: 'absolute',
+    top: 410, // +30
+    left: 180,
+    width: 110,
+    height: 70,
+  },
+  washingroomTouchableArea: {
+    position: 'absolute',
+    top: 410, // +30
+    left: 315,
+    width: 40,
+    height: 60,
+  },
+  transparentOverlay: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
+});
 
 export default HomeScreen;
