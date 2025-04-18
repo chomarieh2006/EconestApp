@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Image, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
+import { View, Image, Text, TouchableOpacity, StyleSheet, Animated, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AppliancePopup from '../components/ApplianceModal';
 
 const BedroomScreen = () => {
   const navigation = useNavigation();
-  const [selectedImage, setSelectedImage] = useState<any | null>(null);
+  const [selectedAppliance, setSelectedAppliance] = useState<any | null>(null);
 
   const imageMap: Record<string, any> = {
     'Air Conditioner': require('../assets/fridgepopup.png'),
@@ -13,14 +14,11 @@ const BedroomScreen = () => {
   };
 
   const handleApplianceClick = (applianceName: string) => {
-    const imageUrl = imageMap[applianceName];
-    if (imageUrl) {
-      setSelectedImage(imageUrl);
-    }
+    setSelectedAppliance(applianceName)
   };
 
   const handleCloseImage = () => {
-    setSelectedImage(null);
+    setSelectedAppliance(null);
   };
 
   const handleBack = () => {
@@ -88,16 +86,14 @@ const BedroomScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {selectedImage && (
-        <View style={styles.popupContainer}>
-          <Image
-            source={selectedImage}
-            style={styles.popupImage}
+      {selectedAppliance && (
+        <Modal
+          onRequestClose={handleCloseImage}
+        >
+          <AppliancePopup 
+            onClose={handleCloseImage}
           />
-          <TouchableOpacity style={styles.closeButton} onPress={handleCloseImage}>
-            <Text style={styles.closeText}>X</Text>
-          </TouchableOpacity>
-        </View>
+        </Modal>
       )}
     </View>
   );

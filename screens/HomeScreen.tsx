@@ -18,6 +18,10 @@ const HomeScreen = () => {
         source={require('../assets/home.png')}
         style={styles.homeImage}
       />
+      <Image
+        source={require('../assets/taskbar.png')}
+        style={styles.taskBar}
+      />
 
       <TouchableOpacity onPress={() => handleRoomClick("KitchenScreen")} style={styles.kitchenTouchableArea}>
         <View style={styles.transparentOverlay} />
@@ -34,6 +38,9 @@ const HomeScreen = () => {
       <TouchableOpacity onPress={() => handleRoomClick("BedroomScreen")} style={styles.bedroomTouchableArea}>
         <View style={styles.transparentOverlay} />
       </TouchableOpacity>
+
+      
+
     </View>
   );
 };
@@ -57,36 +64,47 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   homeImage: {
-    top: 80, // +30
-    width: '100%',
-    height: 300,
+    top: 100, // +30
+    width: '110%',
+    height: 350,
+    right: 30,
     resizeMode: 'contain',
+  },
+  taskBar: {
+    position: 'absolute',
+    top: 725, 
+    width: '90%',
+    left: 20,
+    height: 200,
+    //width: 400,
+    resizeMode: 'contain',
+    
   },
   kitchenTouchableArea: {
     position: 'absolute',
-    top: 380, // +30
+    top: 440, // +30
     left: 35,
     width: 130,
     height: 100,
   },
   bedroomTouchableArea: {
     position: 'absolute',
-    top: 320, // +30
+    top: 370, // +30
     left: 170,
     width: 150,
     height: 80,
   },
   livingroomTouchableArea: {
     position: 'absolute',
-    top: 410, // +30
-    left: 180,
+    top: 480, // +30
+    left: 200,
     width: 110,
     height: 70,
   },
   washingroomTouchableArea: {
     position: 'absolute',
-    top: 410, // +30
-    left: 315,
+    top: 490, // +30
+    left: 350,
     width: 40,
     height: 60,
   },
