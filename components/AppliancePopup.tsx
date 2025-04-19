@@ -13,9 +13,9 @@ import televisions from '../JSONs/televisions.json';
 import airConditioners from '../JSONs/air_conditioners.json';
 import downlights from '../JSONs/downlights.json';
 import { Picker } from '@react-native-picker/picker';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, setDoc, arrayUnion, updateDoc, getDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 import { db } from '../firebase';
-import { doc, getDoc } from 'firebase/firestore';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -97,6 +97,16 @@ const AppliancePopup = () => {
       return;
     }
 
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (!user) {
+      alert('No logged-in user!');
+      return;
+    }
+
+    const userRef = doc(db, 'users', user.uid);
+    const userSnap = await getDoc(userRef);
+
     const selected = dropdownOptions.find(opt => opt.value === selectedValue);
     const newAppliance = selected
       ? selected.fullData
@@ -108,10 +118,19 @@ const AppliancePopup = () => {
         };
 
     try {
-      await addDoc(collection(db, `${appliance.toLowerCase().replace(' ', '')}Appliances`), {
-        ...newAppliance,
-        timestamp: serverTimestamp(),
-      });
+      if (userSnap.exists()) {
+        // Document exists, safely use arrayUnion
+        await updateDoc(userRef, {
+          [`AppliancesMap.${appliance}`]: arrayUnion(form.name)
+        });
+      } else {
+        // Create the document with proper map + array structure
+        await setDoc(userRef, {
+          AppliancesMap: {
+            [appliance]: [form.name] // ✅ now it's a real array in a map
+          }
+        });
+      }
 
       alert(`${appliance} saved successfully!`);
       setModalVisible(false);

@@ -19,11 +19,6 @@ export default function StackNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen 
-          name="Login" 
-          component={LoginScreen} 
-          options={{ headerShown: false }}
-        />
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
@@ -32,6 +27,11 @@ export default function StackNavigator() {
         <Stack.Screen 
           name="SignupScreen" 
           component={SignupScreen} 
+        />
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="KitchenScreen"
