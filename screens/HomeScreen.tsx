@@ -1,16 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+
+// Removed redundant local declaration of auth
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return unsubscribe;
+  }, []);
 
   const handleRoomClick = (room: string) => {
     navigation.navigate(room);
   };
 
+  const handleProfileClick = () => {
+    if (user) {
+      navigation.navigate('ProfileScreen');
+    } else {
+      navigation.navigate('Login');
+    }
+  };
+
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.profileButton} onPress={handleProfileClick}>
+        <Text style={styles.profileText}>👤</Text>
+      </TouchableOpacity>
+
       <Text style={styles.title}>Welcome to your Home</Text>
       <Text style={styles.subtitle}>Tap to manage rooms & appliances</Text>
 
@@ -38,9 +62,6 @@ const HomeScreen = () => {
       <TouchableOpacity onPress={() => handleRoomClick("BedroomScreen")} style={styles.bedroomTouchableArea}>
         <View style={styles.transparentOverlay} />
       </TouchableOpacity>
-
-      
-
     </View>
   );
 };
@@ -50,21 +71,33 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FDF8EC',
   },
+  profileButton: {
+    position: 'absolute',
+    top: 50,
+    right: 20,
+    zIndex: 10,
+    backgroundColor: '#DCECC3',
+    borderRadius: 20,
+    padding: 10,
+  },
+  profileText: {
+    fontSize: 18,
+  },
   title: {
     fontSize: 28,
     fontWeight: '600',
     color: '#3E2C1D',
-    marginTop: 90, // +30
+    marginTop: 90,
     marginLeft: 20,
   },
   subtitle: {
     fontSize: 16,
     color: '#3E2C1D',
-    marginTop: 15, // +30
+    marginTop: 15,
     marginLeft: 20,
   },
   homeImage: {
-    top: 100, // +30
+    top: 100,
     width: '110%',
     height: 350,
     right: 30,
@@ -72,38 +105,36 @@ const styles = StyleSheet.create({
   },
   taskBar: {
     position: 'absolute',
-    top: 725, 
+    top: 725,
     width: '90%',
     left: 20,
     height: 200,
-    //width: 400,
     resizeMode: 'contain',
-    
   },
   kitchenTouchableArea: {
     position: 'absolute',
-    top: 440, // +30
+    top: 440,
     left: 35,
     width: 130,
     height: 100,
   },
   bedroomTouchableArea: {
     position: 'absolute',
-    top: 370, // +30
+    top: 370,
     left: 170,
     width: 150,
     height: 80,
   },
   livingroomTouchableArea: {
     position: 'absolute',
-    top: 480, // +30
+    top: 480,
     left: 200,
     width: 110,
     height: 70,
   },
   washingroomTouchableArea: {
     position: 'absolute',
-    top: 490, // +30
+    top: 490,
     left: 350,
     width: 40,
     height: 60,

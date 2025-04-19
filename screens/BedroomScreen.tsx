@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet, Animated, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AppliancePopup from '../components/ApplianceModal';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 const BedroomScreen = () => {
   const navigation = useNavigation();
@@ -85,15 +86,20 @@ const BedroomScreen = () => {
           <Animated.View style={[styles.circle, { transform: [{ scale: bounce3 }] }]} />
         </TouchableOpacity>
       </View>
-
+      
       {selectedAppliance && (
         <Modal
+          transparent
+          animationType="fade"
           onRequestClose={handleCloseImage}
         >
-          <AppliancePopup 
+          <AppliancePopup
+            userId="demoUser123" //TO-DO
+            //DO this later
+            appliance={selectedAppliance}
             onClose={handleCloseImage}
           />
-        </Modal>
+          </Modal>
       )}
     </View>
   );
@@ -161,6 +167,12 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'transparent',
   },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.14)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },  
   circle: {
     width: 12,
     height: 12,

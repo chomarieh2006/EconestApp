@@ -6,6 +6,9 @@ import KitchenScreen from '../screens/KitchenScreen';
 import BedroomScreen from '../screens/BedroomScreen';
 import LivingRoomScreen from '../screens/LivingRoomScreen';
 import WashingRoomScreen from '../screens/WashingRoomScreen';
+import LoginScreen from '../screens/Login';
+import SignupScreen from '../screens/SignupScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +16,14 @@ export default function StackNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
+        />
+        <Stack.Screen 
+          name="SignupScreen" 
+          component={SignupScreen} 
+        />
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
@@ -26,6 +37,11 @@ export default function StackNavigator() {
         <Stack.Screen
           name="BedroomScreen"
           component={BedroomScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="ProfileScreen" 
+          component={ProfileScreen} 
           options={{ headerShown: false }}
         />
         <Stack.Screen
