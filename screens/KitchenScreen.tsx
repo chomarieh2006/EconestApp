@@ -6,22 +6,11 @@ const KitchenScreen = () => {
   const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState<any | null>(null);
 
-  const imageMap: Record<string, any> = {
-    Fridge: require('../assets/fridgepopup.png'),
-    Oven: require('../assets/fridgepopup.png'),
-    Blender: require('../assets/fridgepopup.png'),
-    Toaster: require('../assets/fridgepopup.png'),
-  };
-
   const handleApplianceClick = (applianceName: string) => {
-    const imageUrl = imageMap[applianceName];
-    if (imageUrl) {
-      setSelectedImage(imageUrl);
-    }
-  };
-
-  const handleCloseImage = () => {
-    setSelectedImage(null);
+    navigation.navigate('ApplianceModal', {
+      userId: 'demoUser123',
+      appliance: applianceName,
+    });
   };
 
   const handleBack = () => {
@@ -88,17 +77,6 @@ const KitchenScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {selectedImage && (
-        <View style={styles.popupContainer}>
-          <Image
-            source={selectedImage}
-            style={styles.popupImage}
-          />
-          <TouchableOpacity style={styles.closeButton} onPress={handleCloseImage}>
-            <Text style={styles.closeText}>X</Text>
-          </TouchableOpacity>
-        </View>
-      )}
     </View>
   );
 };

@@ -6,17 +6,11 @@ const WashingRoomScreen = () => {
   const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState<any | null>(null);
 
-  const imageMap: Record<string, any> = {
-    Washer: require('../assets/fridgepopup.png'),
-    Dryer: require('../assets/fridgepopup.png'),
-    'Ceiling Lamp': require('../assets/fridgepopup.png'),
-  };
-
   const handleApplianceClick = (applianceName: string) => {
-    const imageUrl = imageMap[applianceName];
-    if (imageUrl) {
-      setSelectedImage(imageUrl);
-    }
+    navigation.navigate('ApplianceModal', {
+      userId: 'demoUser123',
+      appliance: applianceName,
+    });
   };
 
   const handleCloseImage = () => {
@@ -78,18 +72,6 @@ const WashingRoomScreen = () => {
           <Animated.View style={[styles.circle, { transform: [{ scale: bounce3 }] }]} />
         </TouchableOpacity>
       </View>
-
-      {selectedImage && (
-        <View style={styles.popupContainer}>
-          <Image
-            source={selectedImage}
-            style={styles.popupImage}
-          />
-          <TouchableOpacity style={styles.closeButton} onPress={handleCloseImage}>
-            <Text style={styles.closeText}>X</Text>
-          </TouchableOpacity>
-        </View>
-      )}
     </View>
   );
 };

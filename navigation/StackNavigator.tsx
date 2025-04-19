@@ -5,6 +5,8 @@ import HomeScreen from '../screens/HomeScreen';
 import KitchenScreen from '../screens/KitchenScreen';
 import BedroomScreen from '../screens/BedroomScreen';
 import LivingRoomScreen from '../screens/LivingRoomScreen';
+import SummaryScreen from '../screens/SummaryScreen';
+import DashboardScreen from '../screens/DashboardScreen';
 import WashingRoomScreen from '../screens/WashingRoomScreen';
 import LoginScreen from '../screens/Login';
 import SignupScreen from '../screens/SignupScreen';
@@ -17,14 +19,15 @@ export default function StackNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
           options={{ headerShown: false }} // ✅ This line hides the iOS header
-        />
-        <Stack.Screen 
-          name="Login" 
-          component={LoginScreen} 
         />
         <Stack.Screen 
           name="SignupScreen" 
@@ -33,6 +36,11 @@ export default function StackNavigator() {
         <Stack.Screen
           name="KitchenScreen"
           component={KitchenScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SummaryScreen"
+          component={SummaryScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -53,6 +61,11 @@ export default function StackNavigator() {
         <Stack.Screen
           name="WashingRoomScreen"
           component={WashingRoomScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DashboardScreen"
+          component={DashboardScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

@@ -3,7 +3,7 @@ import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-
+import TaskBar from '../components/taskbar';
 // Removed redundant local declaration of auth
 
 const HomeScreen = () => {
@@ -42,10 +42,10 @@ const HomeScreen = () => {
         source={require('../assets/home.png')}
         style={styles.homeImage}
       />
-      <Image
-        source={require('../assets/taskbar.png')}
-        style={styles.taskBar}
-      />
+
+      <View style={styles.taskbarWrapper}>
+          <TaskBar />
+      </View>
 
       <TouchableOpacity onPress={() => handleRoomClick("KitchenScreen")} style={styles.kitchenTouchableArea}>
         <View style={styles.transparentOverlay} />
@@ -60,6 +60,14 @@ const HomeScreen = () => {
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => handleRoomClick("BedroomScreen")} style={styles.bedroomTouchableArea}>
+        <View style={styles.transparentOverlay} />
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => handleRoomClick("DashboardScreen")} style={styles.dashboardTouchableArea}>
+        <View style={styles.transparentOverlay} />
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => handleRoomClick("SummaryScreen")} style={styles.summaryTouchableArea}>
         <View style={styles.transparentOverlay} />
       </TouchableOpacity>
     </View>
@@ -105,10 +113,11 @@ const styles = StyleSheet.create({
   },
   taskBar: {
     position: 'absolute',
-    top: 725,
+    bottom: 0,
+    left: '5%',
     width: '90%',
-    left: 20,
-    height: 200,
+    height: 120, // Increased height
+    paddingBottom: 20, // Slightly more padding
     resizeMode: 'contain',
   },
   kitchenTouchableArea: {
@@ -138,6 +147,30 @@ const styles = StyleSheet.create({
     left: 350,
     width: 40,
     height: 60,
+  },
+  taskbarWrapper: {
+    position: 'absolute',
+    bottom: 20,
+    left: '5%',
+    width: '90%',
+  },
+  dashboardTouchableArea: {
+    position: 'absolute',
+    bottom: 20,
+    left: '45%',
+    width: '10%',
+    height: 80, // Increased height
+    paddingBottom: 20, // Slightly more padding
+    resizeMode: 'contain',
+  },
+  summaryTouchableArea: {
+    position: 'absolute',
+    bottom: 20,
+    left: '70%',
+    width: '10%',
+    height: 80, // Increased height
+    paddingBottom: 20, // Slightly more padding
+    resizeMode: 'contain',
   },
   transparentOverlay: {
     flex: 1,
