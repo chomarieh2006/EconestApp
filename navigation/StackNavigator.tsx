@@ -9,6 +9,7 @@ import WashingRoomScreen from '../screens/WashingRoomScreen';
 import LoginScreen from '../screens/Login';
 import SignupScreen from '../screens/SignupScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import AppliancePopup from '../components/AppliancePopup';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,11 @@ export default function StackNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{ headerShown: false }} // ✅ This line hides the iOS header
+        />
         <Stack.Screen 
           name="Login" 
           component={LoginScreen} 
@@ -23,11 +29,6 @@ export default function StackNavigator() {
         <Stack.Screen 
           name="SignupScreen" 
           component={SignupScreen} 
-        />
-        <Stack.Screen
-          name="HomeScreen"
-          component={HomeScreen}
-          options={{ headerShown: false }} // ✅ This line hides the iOS header
         />
         <Stack.Screen
           name="KitchenScreen"
@@ -53,6 +54,14 @@ export default function StackNavigator() {
           name="WashingRoomScreen"
           component={WashingRoomScreen}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ApplianceModal"
+          component={AppliancePopup}
+          options={{
+            presentation: 'modal', // 👈 makes it slide from bottom like a modal
+            headerShown: false,    // hide the top bar
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Image, Text, TouchableOpacity, StyleSheet, Animated, Modal } from 'react-native';
+import { View, Image, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import AppliancePopup from '../components/ApplianceModal';
-import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 const BedroomScreen = () => {
   const navigation = useNavigation();
-  const [selectedAppliance, setSelectedAppliance] = useState<any | null>(null);
 
   const imageMap: Record<string, any> = {
     'Air Conditioner': require('../assets/fridgepopup.png'),
@@ -15,11 +12,10 @@ const BedroomScreen = () => {
   };
 
   const handleApplianceClick = (applianceName: string) => {
-    setSelectedAppliance(applianceName)
-  };
-
-  const handleCloseImage = () => {
-    setSelectedAppliance(null);
+    navigation.navigate('ApplianceModal', {
+      userId: 'demoUser123',
+      appliance: applianceName,
+    });
   };
 
   const handleBack = () => {
@@ -86,21 +82,6 @@ const BedroomScreen = () => {
           <Animated.View style={[styles.circle, { transform: [{ scale: bounce3 }] }]} />
         </TouchableOpacity>
       </View>
-      
-      {selectedAppliance && (
-        <Modal
-          transparent
-          animationType="fade"
-          onRequestClose={handleCloseImage}
-        >
-          <AppliancePopup
-            userId="demoUser123" //TO-DO
-            //DO this later
-            appliance={selectedAppliance}
-            onClose={handleCloseImage}
-          />
-          </Modal>
-      )}
     </View>
   );
 };
@@ -180,35 +161,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     alignSelf: 'center',
     marginTop: 5,
-  },
-  popupContainer: {
-    position: 'absolute',
-    top: 140,
-    left: 50,
-    zIndex: 20,
-    alignItems: 'flex-end',
-  },
-  popupImage: {
-    width: 200,
-    height: 200,
-    resizeMode: 'contain',
-  },
-  closeButton: {
-    position: 'absolute',
-    top: -10,
-    right: -10,
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    width: 24,
-    height: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 2,
-  },
-  closeText: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#3E2C1D',
   },
 });
 
