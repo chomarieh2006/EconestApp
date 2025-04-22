@@ -40,7 +40,7 @@ const HomeScreen = () => {
       <Text style={styles.subtitle}>Tap to manage rooms & appliances</Text>
 
       <Image
-        source={require('../assets/blue_home.png')}
+        source={require('../assets/home.png')}
         style={styles.homeImage}
       />
 
