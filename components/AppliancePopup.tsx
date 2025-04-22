@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
   },
   popup: {
     width: SCREEN_WIDTH * 0.9,
-    backgroundColor: '#DCECC3',
+    backgroundColor: '#bad2ff',
     borderRadius: 20,
     padding: 20,
   },
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
   recInfo: { flex: 1 },
   recName: { fontSize: 14, fontWeight: '600' },
   recUsage: { fontSize: 12, color: '#666' },
-  editButton: { padding: 6, backgroundColor: '#2E4C17', borderRadius: 6 },
+  editButton: { padding: 6, backgroundColor: '#0046b5ff', borderRadius: 6 },
   editText: { color: '#FFF', fontSize: 12 },
   usageRow: {
     flexDirection: 'row',

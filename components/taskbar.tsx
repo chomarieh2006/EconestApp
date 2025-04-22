@@ -1,68 +1,80 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import React from 'react';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { AntDesign, FontAwesome5, Ionicons } from '@expo/vector-icons';
 
-const TaskBar = () => {
+const BottomNavBar = () => {
   const navigation = useNavigation();
-  const [activeTab, setActiveTab] = useState('Rooms');
+  const route = useRoute();
 
   const tabs = [
     {
-      name: 'Rooms',
+      name: 'Home',
       screen: 'HomeScreen',
-      activeIcon: require('../assets/kitchen.png'),
-      inactiveIcon: require('../assets/kitchen.png'),
+      icon: (focused: boolean) => (
+        <AntDesign name="home" size={28} color={focused ? '#ffffff' : '#bad2ff'} />
+      ),
     },
     {
-      name: 'Home',
+      name: 'Dashboard',
       screen: 'DashboardScreen',
-      activeIcon: require('../assets/kitchen.png'),
-      inactiveIcon: require('../assets/kitchen.png'),
+      icon: (focused: boolean) => (
+        <Ionicons name="grid-outline" size={28} color={focused ? '#ffffff' : '#bad2ff'} />
+      ),
     },
     {
       name: 'Stats',
       screen: 'SummaryScreen',
-      activeIcon: require('../assets/kitchen.png'),
-      inactiveIcon: require('../assets/kitchen.png'),
+      icon: (focused: boolean) => (
+        <FontAwesome5 name="chart-bar" size={24} color={focused ? '#ffffff' : '#bad2ff'} />
+      ),
     },
   ];
 
   return (
-    <View style={styles.taskbarContainer}>
-      {tabs.map((tab) => (
-        <TouchableOpacity
-          key={tab.name}
-          onPress={() => {
-            setActiveTab(tab.name);
-            navigation.navigate(tab.screen as never);
-          }}
-        >
-          <Image
-            source={activeTab === tab.name ? tab.activeIcon : tab.inactiveIcon}
-            style={styles.icon}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-      ))}
+    <View style={styles.navbar}>
+      {tabs.map((tab) => {
+        const isActive = route.name === tab.screen;
+        return (
+          <TouchableOpacity
+            key={tab.name}
+            style={styles.tabItem}
+            onPress={() => navigation.navigate(tab.screen as never)}
+          >
+            {tab.icon(isActive)}
+            <Text style={[styles.tabText, { color: isActive ? '#ffffff' : '#bad2ff' }]}>
+              {tab.name}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  taskbarContainer: {
+  navbar: {
     flexDirection: 'row',
-    backgroundColor: '#c8d7a2',
-    borderRadius: 50,
+    backgroundColor: '#0046b5ff',
+    borderRadius: 30,
     justifyContent: 'space-around',
     alignItems: 'center',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    position: 'absolute',
+    bottom: 20,
+    left: '5%',
+    width: '90%',
+    elevation: 8,
   },
-  icon: {
-    width: 40,
-    height: 40,
+  tabItem: {
+    alignItems: 'center',
+  },
+  tabText: {
+    fontSize: 12,
+    marginTop: 4,
+    fontWeight: '500',
   },
 });
 
-export default TaskBar;
+export default BottomNavBar;

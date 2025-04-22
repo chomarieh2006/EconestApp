@@ -57,9 +57,9 @@ export default SignupScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#FEFBEF', paddingHorizontal: 30 },
-  title: { fontSize: 24, marginBottom: 30, color: '#2E4C17', fontWeight: '600' },
-  input: { backgroundColor: '#DCECC3', width: '100%', borderRadius: 50, paddingHorizontal: 20, height: 50, marginBottom: 16 },
-  button: { backgroundColor: '#2E4C17', paddingVertical: 14, paddingHorizontal: 50, borderRadius: 50, marginTop: 10 },
+  title: { fontSize: 24, marginBottom: 30, color: '#0046b5ff', fontWeight: '600' },
+  input: { backgroundColor: '#bad2ff', width: '100%', borderRadius: 50, paddingHorizontal: 20, height: 50, marginBottom: 16 },
+  button: { backgroundColor: '#0046b5ff', paddingVertical: 14, paddingHorizontal: 50, borderRadius: 50, marginTop: 10 },
   buttonText: { color: '#FFF', fontWeight: '600', fontSize: 16 },
-  loginLink: { marginTop: 20, color: '#A0C272', fontWeight: '600', fontSize: 14 },
+  loginLink: { marginTop: 20, color: '#bad2ff', fontWeight: '600', fontSize: 14 },
 });
