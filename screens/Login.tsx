@@ -55,9 +55,9 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#FEFBEF', paddingHorizontal: 30 },
   profileImage: { width: 120, height: 120, borderRadius: 60, marginBottom: 30 },
-  input: { backgroundColor: '#DCECC3', width: '100%', borderRadius: 50, paddingHorizontal: 20, height: 50, marginBottom: 16 },
-  button: { backgroundColor: '#2E4C17', borderRadius: 50, paddingVertical: 14, paddingHorizontal: 50, marginTop: 10 },
+  input: { backgroundColor: '#bad2ff', width: '100%', borderRadius: 50, paddingHorizontal: 20, height: 50, marginBottom: 16 },
+  button: { backgroundColor: '#0046b5ff', borderRadius: 50, paddingVertical: 14, paddingHorizontal: 50, marginTop: 10 },
   buttonText: { color: '#FFF', fontWeight: '600', fontSize: 16 },
   eye: { fontSize: 18, marginBottom: 10 },
-  link: { marginTop: 20, color: '#A0C272', fontWeight: '600' },
+  link: { marginTop: 20, color: '#bad2ff', fontWeight: '600' },
 });

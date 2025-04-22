@@ -12,21 +12,21 @@ const BottomNavBar = () => {
       name: 'Home',
       screen: 'HomeScreen',
       icon: (focused: boolean) => (
-        <AntDesign name="home" size={28} color={focused ? '#3E2C1D' : '#8A8A8A'} />
+        <AntDesign name="home" size={28} color={focused ? '#ffffff' : '#bad2ff'} />
       ),
     },
     {
       name: 'Dashboard',
       screen: 'DashboardScreen',
       icon: (focused: boolean) => (
-        <Ionicons name="grid-outline" size={28} color={focused ? '#3E2C1D' : '#8A8A8A'} />
+        <Ionicons name="grid-outline" size={28} color={focused ? '#ffffff' : '#bad2ff'} />
       ),
     },
     {
       name: 'Stats',
       screen: 'SummaryScreen',
       icon: (focused: boolean) => (
-        <FontAwesome5 name="chart-bar" size={24} color={focused ? '#3E2C1D' : '#8A8A8A'} />
+        <FontAwesome5 name="chart-bar" size={24} color={focused ? '#ffffff' : '#bad2ff'} />
       ),
     },
   ];
@@ -42,7 +42,7 @@ const BottomNavBar = () => {
             onPress={() => navigation.navigate(tab.screen as never)}
           >
             {tab.icon(isActive)}
-            <Text style={[styles.tabText, { color: isActive ? '#3E2C1D' : '#8A8A8A' }]}>
+            <Text style={[styles.tabText, { color: isActive ? '#ffffff' : '#bad2ff' }]}>
               {tab.name}
             </Text>
           </TouchableOpacity>
@@ -55,7 +55,7 @@ const BottomNavBar = () => {
 const styles = StyleSheet.create({
   navbar: {
     flexDirection: 'row',
-    backgroundColor: '#c8d7a2',
+    backgroundColor: '#0046b5ff',
     borderRadius: 30,
     justifyContent: 'space-around',
     alignItems: 'center',

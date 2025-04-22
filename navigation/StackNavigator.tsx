@@ -11,6 +11,7 @@ import WashingRoomScreen from '../screens/WashingRoomScreen';
 import LoginScreen from '../screens/Login';
 import SignupScreen from '../screens/SignupScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import WeekSummaryScreen from '../screens/WeekSummaryScreen';
 import AppliancePopup from '../components/AppliancePopup';
 
 const Stack = createStackNavigator();
@@ -27,6 +28,7 @@ export default function StackNavigator() {
         <Stack.Screen 
           name="SignupScreen" 
           component={SignupScreen} 
+          options={{ headerShown: false }}
         />
         <Stack.Screen 
           name="Login" 
@@ -68,6 +70,12 @@ export default function StackNavigator() {
           component={DashboardScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="WeekSummaryScreen"
+          component={WeekSummaryScreen}
+          options={{ headerShown: false }}
+        />
+
         <Stack.Screen
           name="ApplianceModal"
           component={AppliancePopup}

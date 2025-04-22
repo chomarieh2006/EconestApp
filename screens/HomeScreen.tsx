@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import TaskBar from '../components/taskbar';
+import { Feather, FontAwesome, Entypo } from '@expo/vector-icons';
 // Removed redundant local declaration of auth
 
 const HomeScreen = () => {
@@ -32,14 +33,14 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.profileButton} onPress={handleProfileClick}>
-        <Text style={styles.profileText}>👤</Text>
+        <Feather name="user" size={24} color="white" />
       </TouchableOpacity>
 
       <Text style={styles.title}>Welcome to your Home</Text>
       <Text style={styles.subtitle}>Tap to manage rooms & appliances</Text>
 
       <Image
-        source={require('../assets/home.png')}
+        source={require('../assets/blue_home.png')}
         style={styles.homeImage}
       />
 
@@ -77,14 +78,14 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FDF8EC',
+    backgroundColor: '#bad2ff',
   },
   profileButton: {
     position: 'absolute',
     top: 50,
     right: 20,
     zIndex: 10,
-    backgroundColor: '#DCECC3',
+    backgroundColor: '#0046b5ff',
     borderRadius: 20,
     padding: 10,
   },
@@ -106,9 +107,9 @@ const styles = StyleSheet.create({
   },
   homeImage: {
     top: 100,
-    width: '110%',
+    width: '100%',
     height: 350,
-    right: 30,
+    right: 0,
     resizeMode: 'contain',
   },
   taskBar: {
@@ -143,10 +144,10 @@ const styles = StyleSheet.create({
   },
   washingroomTouchableArea: {
     position: 'absolute',
-    top: 490,
-    left: 350,
-    width: 40,
-    height: 60,
+    top: 460,
+    left: 320,
+    width: 50,
+    height: 70,
   },
   taskbarWrapper: {
     position: 'absolute',

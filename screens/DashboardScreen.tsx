@@ -1,8 +1,32 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import BottomNavBar from '../components/taskbar';
+import { AntDesign, FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
+
+
+
 
 const DashboardScreen = () => {
+  const navigation = useNavigation();
+
+  const handleCardClick = (room: string) => {
+    navigation.navigate(room);
+  };
+
+  const [goals, setGoals] = useState([
+    { text: 'Compost 4 times', completed: false },
+    { text: 'Use washer only twice', completed: false },
+  ]);
+  
+  const toggleGoal = (index) => {
+    const updatedGoals = [...goals];
+    updatedGoals[index].completed = !updatedGoals[index].completed;
+    setGoals(updatedGoals);
+  };
+
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -14,7 +38,8 @@ const DashboardScreen = () => {
             <Text style={styles.cardLabel}>Usage Update</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.card}>
+          <TouchableOpacity onPress={() => handleCardClick("WeekSummaryScreen")} style={styles.card}>
+            <AntDesign name="barschart" size={36} color="white" />
             <Text style={styles.cardLabel}>Week Summary</Text>
           </TouchableOpacity>
         </View>
@@ -32,13 +57,27 @@ const DashboardScreen = () => {
 
         <Text style={styles.sectionTitle}>Goals for the Week</Text>
         <View style={styles.goalSection}>
-          <View style={styles.goalBox}>
-            <Text style={styles.goalText}>Compost 4 times</Text>
-          </View>
-          <View style={styles.goalBox}>
-            <Text style={styles.goalText}>Use washer only twice</Text>
-          </View>
+          {goals.map((goal, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.goalBox,
+                goal.completed && styles.goalBoxCompleted,
+              ]}
+              onPress={() => toggleGoal(index)}
+            >
+              <Text
+                style={[
+                  styles.goalText,
+                  goal.completed && styles.goalTextCompleted,
+                ]}
+              >
+                {goal.text}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
+
       </ScrollView>
 
       <View style={styles.taskbarWrapper}>
@@ -51,7 +90,7 @@ const DashboardScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FDF8EC',
+    backgroundColor: '#bad2ff',
     paddingTop: 55,
   },
   scrollContent: {
@@ -72,19 +111,19 @@ const styles = StyleSheet.create({
   card: {
     width: 150,
     height: 130,
-    backgroundColor: '#C9DAA7',
+    backgroundColor: '#2972ea',
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
   plus: {
     fontSize: 36,
-    color: '#3E2C1D',
+    color: 'white',
   },
   cardLabel: {
     marginTop: 8,
     fontSize: 14,
-    color: '#3E2C1D',
+    color: 'white',
   },
   sectionTitle: {
     fontSize: 16,
@@ -110,7 +149,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   goalBox: {
-    backgroundColor: '#C9DAA7',
+    backgroundColor: '#2972ea',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -121,13 +160,20 @@ const styles = StyleSheet.create({
   },
   goalText: {
     fontSize: 16,
-    color: '#3E2C1D',
+    color: 'white',
   },
   taskbarWrapper: {
     position: 'absolute',
     bottom: 20,
     left: '5%',
     width: '90%',
+  },
+  goalBoxCompleted: {
+    backgroundColor: '#A9A9A9', // greyed out
+  },
+  goalTextCompleted: {
+    textDecorationLine: 'line-through',
+    color: '#e0e0e0',
   },
 });
 

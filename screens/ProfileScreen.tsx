@@ -27,6 +27,6 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#FEFBEF' },
   title: { fontSize: 24, fontWeight: '600', marginBottom: 40, color: '#3E2C1D' },
-  logoutButton: { backgroundColor: '#2E4C17', paddingVertical: 14, paddingHorizontal: 40, borderRadius: 30 },
+  logoutButton: { backgroundColor: '#0046b5ff', paddingVertical: 14, paddingHorizontal: 40, borderRadius: 30 },
   logoutText: { color: '#FFF', fontSize: 16, fontWeight: '600' },
 });

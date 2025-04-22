@@ -84,7 +84,7 @@ const KitchenScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FDF8EC',
+    backgroundColor: '#bad2ff',
   },
   backButton: {
     position: 'absolute',
