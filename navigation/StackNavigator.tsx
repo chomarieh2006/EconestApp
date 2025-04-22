@@ -42,6 +42,7 @@ export default function StackNavigator() {
           name="SummaryScreen"
           component={SummaryScreen}
           options={{ headerShown: false }}
+          
         />
         <Stack.Screen
           name="BedroomScreen"
