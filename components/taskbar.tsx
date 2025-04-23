@@ -22,13 +22,6 @@ const BottomNavBar = () => {
         <Ionicons name="grid-outline" size={28} color={focused ? '#ffffff' : '#bad2ff'} />
       ),
     },
-    {
-      name: 'Stats',
-      screen: 'SummaryScreen',
-      icon: (focused: boolean) => (
-        <FontAwesome5 name="chart-bar" size={24} color={focused ? '#ffffff' : '#bad2ff'} />
-      ),
-    },
   ];
 
   return (

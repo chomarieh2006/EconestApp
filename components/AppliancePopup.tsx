@@ -20,6 +20,16 @@ import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
+const applianceImages: Record<string, any> = {
+  // TV: require('../assets/tv.png'),
+  // Lamp: require('../assets/lamp.png'),
+  // 'Air Conditioner': require('../assets/ac.png'),
+  Fridge: require('../assets/fridge.png'),
+  Toaster: require('../assets/toaster.png'),
+  // default: require('../assets/fridge.png'),
+};
+
+
 type ApplianceModalParams = {
   ApplianceModal: {
     userId: string;
@@ -156,7 +166,11 @@ const AppliancePopup = () => {
 
       <View style={styles.popup}>
         <View style={styles.recCard}>
-          <Image source={require('../assets/bedroom.png')} style={styles.recImage} resizeMode="contain" />
+        <Image
+          source={applianceImages[appliance] || applianceImages.default}
+          style={styles.recImage}
+          resizeMode="contain"
+        />
           <View style={styles.recInfo}>
             <Text style={styles.recName}>{current?.name || appliance}</Text>
             <Text style={styles.recUsage}>{current?.usage || '500'} kWh/year</Text>

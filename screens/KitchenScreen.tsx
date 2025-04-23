@@ -13,6 +13,8 @@ const KitchenScreen = () => {
     });
   };
 
+  
+
   const handleBack = () => {
     if (navigation.canGoBack()) {
       navigation.goBack();
@@ -52,7 +54,7 @@ const KitchenScreen = () => {
 
       <View style={styles.kitchenWrapper}>
         <Image
-          source={require('../assets/kitchen.png')}
+          source={require('../assets/blue_kitchen.png')}
           style={styles.kitchenImage}
         />
 
@@ -120,29 +122,29 @@ const styles = StyleSheet.create({
   },
   fridgeTouchableArea: {
     position: 'absolute',
-    top: 150,
+    top: 200,
     left: 30,
     width: 95,
     height: 190,
   },
   ovenTouchableArea: {
     position: 'absolute',
-    top: 220,
+    top: 250,
     left: 230,
     width: 100,
     height: 110,
   },
   blenderTouchableArea: {
     position: 'absolute',
-    top: 170,
-    left: 185,
+    top: 190,
+    left: 170,
     width: 25,
     height: 50,
   },
   toasterTouchableArea: {
     position: 'absolute',
-    top: 190,
-    left: 215,
+    top: 200,
+    left: 130,
     width: 37,
     height: 20,
   },

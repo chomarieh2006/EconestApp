@@ -67,10 +67,6 @@ const HomeScreen = () => {
       <TouchableOpacity onPress={() => handleRoomClick("DashboardScreen")} style={styles.dashboardTouchableArea}>
         <View style={styles.transparentOverlay} />
       </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => handleRoomClick("SummaryScreen")} style={styles.summaryTouchableArea}>
-        <View style={styles.transparentOverlay} />
-      </TouchableOpacity>
     </View>
   );
 };
