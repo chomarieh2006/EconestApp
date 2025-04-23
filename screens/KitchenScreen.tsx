@@ -21,7 +21,6 @@ const KitchenScreen = () => {
     }
   };
 
-  // Bounce animations
   const bounce1 = useRef(new Animated.Value(1)).current;
   const bounce2 = useRef(new Animated.Value(1)).current;
   const bounce3 = useRef(new Animated.Value(1)).current;
@@ -76,7 +75,6 @@ const KitchenScreen = () => {
           <Animated.View style={[styles.circle, { transform: [{ scale: bounce4 }] }]} />
         </TouchableOpacity>
       </View>
-
     </View>
   );
 };
@@ -84,7 +82,7 @@ const KitchenScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#bad2ff',
+    backgroundColor: '#bad2ff', // Updated to match HomeScreen
   },
   backButton: {
     position: 'absolute',
@@ -95,7 +93,7 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 18,
-    color: '#3E2C1D',
+    color: '#3E2C1D', // Same brown text color as HomeScreen
     fontWeight: '500',
   },
   title: {
@@ -154,38 +152,9 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff', // white circle to match other screens
     alignSelf: 'center',
     marginTop: 5,
-  },
-  popupContainer: {
-    position: 'absolute',
-    top: 140,
-    left: 50,
-    zIndex: 20,
-    alignItems: 'flex-end',
-  },
-  popupImage: {
-    width: 200,
-    height: 200,
-    resizeMode: 'contain',
-  },
-  closeButton: {
-    position: 'absolute',
-    top: -10,
-    right: -10,
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    width: 24,
-    height: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 2,
-  },
-  closeText: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#3E2C1D',
   },
 });
 

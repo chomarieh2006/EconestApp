@@ -5,12 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 const BedroomScreen = () => {
   const navigation = useNavigation();
 
-  const imageMap: Record<string, any> = {
-    'Air Conditioner': require('../assets/fridgepopup.png'),
-    TV: require('../assets/fridgepopup.png'),
-    Lamp: require('../assets/fridgepopup.png'),
-  };
-
   const handleApplianceClick = (applianceName: string) => {
     navigation.navigate('ApplianceModal', {
       userId: 'demoUser123',
@@ -31,26 +25,17 @@ const BedroomScreen = () => {
   const bounce3 = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    const createBounce = (animation: Animated.Value) => {
-      return Animated.loop(
+    const animate = (val: Animated.Value) => {
+      Animated.loop(
         Animated.sequence([
-          Animated.timing(animation, {
-            toValue: 1.2,
-            duration: 600,
-            useNativeDriver: true,
-          }),
-          Animated.timing(animation, {
-            toValue: 1,
-            duration: 600,
-            useNativeDriver: true,
-          }),
+          Animated.timing(val, { toValue: 1.2, duration: 600, useNativeDriver: true }),
+          Animated.timing(val, { toValue: 1, duration: 600, useNativeDriver: true }),
         ])
       ).start();
     };
-
-    createBounce(bounce1);
-    createBounce(bounce2);
-    createBounce(bounce3);
+    animate(bounce1);
+    animate(bounce2);
+    animate(bounce3);
   }, []);
 
   return (
@@ -89,7 +74,7 @@ const BedroomScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FDF8EC',
+    backgroundColor: '#bad2ff', // Blue background like HomeScreen
   },
   backButton: {
     position: 'absolute',
@@ -148,12 +133,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'transparent',
   },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.14)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },  
   circle: {
     width: 12,
     height: 12,

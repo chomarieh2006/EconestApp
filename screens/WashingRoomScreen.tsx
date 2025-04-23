@@ -13,10 +13,6 @@ const WashingRoomScreen = () => {
     });
   };
 
-  const handleCloseImage = () => {
-    setSelectedImage(null);
-  };
-
   const handleBack = () => {
     if (navigation.canGoBack()) {
       navigation.goBack();
@@ -79,7 +75,7 @@ const WashingRoomScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FDF8EC',
+    backgroundColor: '#bad2ff', // Updated background
   },
   backButton: {
     position: 'absolute',
@@ -90,7 +86,7 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 18,
-    color: '#3E2C1D',
+    color: '#3E2C1D', // Consistent with app text color
     fontWeight: '500',
   },
   title: {

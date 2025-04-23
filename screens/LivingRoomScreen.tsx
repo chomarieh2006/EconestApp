@@ -13,7 +13,6 @@ const LivingRoomScreen = () => {
     });
   };
 
-
   const handleBack = () => {
     if (navigation.canGoBack()) {
       navigation.goBack();
@@ -76,7 +75,7 @@ const LivingRoomScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FDF8EC',
+    backgroundColor: '#bad2ff', // Updated to match HomeScreen background
   },
   backButton: {
     position: 'absolute',
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 18,
-    color: '#3E2C1D',
+    color: '#3E2C1D', // Consistent brown text
     fontWeight: '500',
   },
   title: {
