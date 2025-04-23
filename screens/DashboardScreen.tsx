@@ -19,7 +19,7 @@ const DashboardScreen = () => {
     { text: 'Compost 4 times', completed: false },
     { text: 'Use washer only twice', completed: false },
   ]);
-  
+
   const toggleGoal = (index) => {
     const updatedGoals = [...goals];
     updatedGoals[index].completed = !updatedGoals[index].completed;
@@ -50,9 +50,17 @@ const DashboardScreen = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.applianceRow}
         >
-          <Image source={require('../assets/livingroom.png')} style={styles.applianceImage} />
-          <Image source={require('../assets/kitchen.png')} style={styles.applianceImage} />
-          <Image source={require('../assets/laundryroom.png')} style={styles.applianceImage} />
+          <Image source={require('../assets/fridge.png')} style={styles.applianceImage} />
+          <Image source={require('../assets/blender.png')} style={styles.applianceImage} />
+          <Image source={require('../assets/toaster.png')} style={styles.applianceImage} />
+          <Image source={require('../assets/oven.png')} style={styles.applianceImage} />
+          <Image source={require('../assets/lamp.png')} style={styles.applianceImage} />
+          <Image source={require('../assets/tv.png')} style={styles.applianceImage} />
+          <Image source={require('../assets/ac.png')} style={styles.applianceImage} />
+          <Image source={require('../assets/washer.png')} style={styles.applianceImage} />
+          <Image source={require('../assets/dryer.png')} style={styles.applianceImage} />
+          <Image source={require('../assets/ceilinglamp.png')} style={styles.applianceImage} />
+
         </ScrollView>
 
         <Text style={styles.sectionTitle}>Goals for the Week</Text>

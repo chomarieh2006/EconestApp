@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, Modal } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const generateMonths = (startDate, numberOfMonths) => {
   const months = [];
@@ -25,12 +26,26 @@ const generateMonths = (startDate, numberOfMonths) => {
 };
 
 const SummaryScreen = () => {
-    const weeks = generateMonths('2025-05-01', 7);
+  const navigation = useNavigation();
+
+  const handleBack = () => {
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    } else {
+      navigation.navigate('DashboardScreen');
+    }
+  };
+
+  const weeks = generateMonths('2025-05-01', 7);
   const [selectedWeek, setSelectedWeek] = useState(weeks[0]);
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+        <Text style={styles.backText}>← Back</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity
         style={styles.dropdown}
         onPress={() => setModalVisible(true)}
@@ -46,20 +61,20 @@ const SummaryScreen = () => {
         >
           <View style={styles.modal}>
             <ScrollView style={{ maxHeight: 170 }}>
-                {weeks.map((week, index) => (
+              {weeks.map((week, index) => (
                 <TouchableOpacity
-                    key={index}
-                    style={styles.modalItem}
-                    onPress={() => {
+                  key={index}
+                  style={styles.modalItem}
+                  onPress={() => {
                     setSelectedWeek(week);
                     setModalVisible(false);
-                    }}
+                  }}
                 >
-                    <Text style={styles.modalItemText}>{week}</Text>
+                  <Text style={styles.modalItemText}>{week}</Text>
                 </TouchableOpacity>
-                ))}
+              ))}
             </ScrollView>
-            </View>
+          </View>
         </TouchableOpacity>
       </Modal>
 
@@ -152,6 +167,18 @@ const styles = StyleSheet.create({
   modalItemText: {
     fontSize: 14,
     color: '#333',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 45,
+    left: 10,
+    zIndex: 10,
+    padding: 10,
+  },
+  backText: {
+    fontSize: 18,
+    color: '#3E2C1D',
+    fontWeight: '500',
   },
 });
 

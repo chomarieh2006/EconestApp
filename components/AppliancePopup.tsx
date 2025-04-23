@@ -21,11 +21,16 @@ import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const applianceImages: Record<string, any> = {
-  // TV: require('../assets/tv.png'),
-  // Lamp: require('../assets/lamp.png'),
-  // 'Air Conditioner': require('../assets/ac.png'),
+  TV: require('../assets/tv.png'),
+  Lamp: require('../assets/lamp.png'),
+  Blender: require('../assets/blender.png'),
+  'Air Conditioner': require('../assets/ac.png'),
   Fridge: require('../assets/fridge.png'),
   Toaster: require('../assets/toaster.png'),
+  Oven: require('../assets/oven.png'),
+  Washer: require('../assets/washer.png'),
+  Dryer: require('../assets/dryer.png'),
+  'Ceiling Lamp': require('../assets/ceilinglamp.png'),
   // default: require('../assets/fridge.png'),
 };
 

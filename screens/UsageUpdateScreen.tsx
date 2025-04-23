@@ -11,6 +11,9 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+
+
 
 const generateMonths = (startDate, numberOfMonths) => {
   const months = [];
@@ -28,12 +31,22 @@ const generateMonths = (startDate, numberOfMonths) => {
 };
 
 const UsageUpdateScreen = () => {
+  const navigation = useNavigation();
+
+  const handleBack = () => {
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    } else {
+      navigation.navigate('DashboardScreen');
+    }
+  };
+
   const months = generateMonths('2025-05-01', 7);
-//   const [selectedMonth, setSelectedMonth] = useState(months[0]);
+  //   const [selectedMonth, setSelectedMonth] = useState(months[0]);
   const [modalVisible, setModalVisible] = useState(false);
   const [appliances, setAppliances] = useState([]);
-const [nameInput, setNameInput] = useState('');
-const [durationInput, setDurationInput] = useState('');
+  const [nameInput, setNameInput] = useState('');
+  const [durationInput, setDurationInput] = useState('');
 
 
   const updateAppliance = (index, field, value) => {
@@ -43,15 +56,15 @@ const [durationInput, setDurationInput] = useState('');
   };
 
   const addAppliance = () => {
-  if (nameInput.trim() && durationInput.trim()) {
-    const newList = [...appliances, { name: nameInput.trim(), duration: durationInput.trim() }];
-    setAppliances(newList);
-    setNameInput('');
-    setDurationInput('');
-  }
-};
+    if (nameInput.trim() && durationInput.trim()) {
+      const newList = [...appliances, { name: nameInput.trim(), duration: durationInput.trim() }];
+      setAppliances(newList);
+      setNameInput('');
+      setDurationInput('');
+    }
+  };
 
-  
+
 
   const [selectedMonth, setSelectedMonth] = useState(() => {
     const now = new Date();
@@ -72,10 +85,10 @@ const [durationInput, setDurationInput] = useState('');
         console.error('Failed to load usage data:', e);
       }
     };
-  
+
     loadData();
   }, [selectedMonth]);
-  
+
   useEffect(() => {
     const saveData = async () => {
       try {
@@ -87,13 +100,17 @@ const [durationInput, setDurationInput] = useState('');
         console.error('Failed to save usage data:', e);
       }
     };
-  
+
     saveData();
   }, [appliances, selectedMonth]);
-  
+
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+        <Text style={styles.backText}>← Back</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity
         style={styles.dropdown}
         onPress={() => setModalVisible(true)}
@@ -129,22 +146,22 @@ const [durationInput, setDurationInput] = useState('');
       <ScrollView style={styles.scroll} contentContainerStyle={{ paddingBottom: 100 }}>
         <Text style={styles.sectionTitle}>Appliance Usage</Text>
         <View style={styles.inputRow}>
-  <TextInput
-    style={styles.input}
-    placeholder="Appliance"
-    placeholderTextColor="#aaa"
-    value={nameInput}
-    onChangeText={setNameInput}
-  />
-  <TextInput
-    style={styles.input}
-    placeholder="Duration (hrs)"
-    placeholderTextColor="#aaa"
-    keyboardType="numeric"
-    value={durationInput}
-    onChangeText={setDurationInput}
-  />
-</View>
+          <TextInput
+            style={styles.input}
+            placeholder="Appliance"
+            placeholderTextColor="#aaa"
+            value={nameInput}
+            onChangeText={setNameInput}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Duration (hrs)"
+            placeholderTextColor="#aaa"
+            keyboardType="numeric"
+            value={durationInput}
+            onChangeText={setDurationInput}
+          />
+        </View>
 
 
         <TouchableOpacity style={styles.addButton} onPress={addAppliance}>
@@ -152,18 +169,18 @@ const [durationInput, setDurationInput] = useState('');
         </TouchableOpacity>
 
         <View style={styles.table}>
-        <View style={styles.tableHeader}>
+          <View style={styles.tableHeader}>
             <Text style={styles.headerText}>Appliance</Text>
             <Text style={styles.headerText}>Duration (hrs)</Text>
-        </View>
-        {appliances.map((item, index) => (
+          </View>
+          {appliances.map((item, index) => (
             item.name && item.duration ? (
-            <View key={index} style={styles.tableRow}>
+              <View key={index} style={styles.tableRow}>
                 <Text style={styles.cellText}>{item.name}</Text>
                 <Text style={styles.cellText}>{item.duration}</Text>
-            </View>
+              </View>
             ) : null
-        ))}
+          ))}
         </View>
       </ScrollView>
     </View>
@@ -279,7 +296,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#333',
   },
-  
+  backButton: {
+    position: 'absolute',
+    top: 45,
+    left: 10,
+    zIndex: 10,
+    padding: 10,
+  },
+  backText: {
+    fontSize: 18,
+    color: '#3E2C1D',
+    fontWeight: '500',
+  },
+
 });
 
 export default UsageUpdateScreen;

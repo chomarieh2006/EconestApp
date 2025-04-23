@@ -2,6 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { AntDesign, FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { CommonActions } from '@react-navigation/native';
 
 const BottomNavBar = () => {
   const navigation = useNavigation();
@@ -32,7 +33,16 @@ const BottomNavBar = () => {
           <TouchableOpacity
             key={tab.name}
             style={styles.tabItem}
-            onPress={() => navigation.navigate(tab.screen as never)}
+            onPress={() => {
+              if (route.name !== tab.screen) {
+                navigation.dispatch({
+                  ...CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: tab.screen as never }],
+                  }),
+                });
+              }
+            }}
           >
             {tab.icon(isActive)}
             <Text style={[styles.tabText, { color: isActive ? '#ffffff' : '#bad2ff' }]}>

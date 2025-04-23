@@ -13,7 +13,7 @@ const KitchenScreen = () => {
     });
   };
 
-  
+
 
   const handleBack = () => {
     if (navigation.canGoBack()) {
@@ -53,7 +53,7 @@ const KitchenScreen = () => {
 
       <View style={styles.kitchenWrapper}>
         <Image
-          source={require('../assets/blue_kitchen.png')}
+          source={require('../assets/kitchen.png')}
           style={styles.kitchenImage}
         />
 

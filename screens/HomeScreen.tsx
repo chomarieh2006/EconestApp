@@ -45,7 +45,7 @@ const HomeScreen = () => {
       />
 
       <View style={styles.taskbarWrapper}>
-          <TaskBar />
+        <TaskBar />
       </View>
 
       <TouchableOpacity onPress={() => handleRoomClick("KitchenScreen")} style={styles.kitchenTouchableArea}>

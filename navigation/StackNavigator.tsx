@@ -13,8 +13,11 @@ import ProfileScreen from '../screens/ProfileScreen';
 import MonthSummaryScreen from '../screens/MonthSummaryScreen';
 import UsageUpdateScreen from '../screens/UsageUpdateScreen';
 import AppliancePopup from '../components/AppliancePopup';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Stack = createStackNavigator();
+
+const Stack = createNativeStackNavigator();
+
 
 export default function StackNavigator() {
   return (
@@ -28,8 +31,15 @@ export default function StackNavigator() {
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
-          options={{ headerShown: false }} // ✅ This line hides the iOS header
+          options={{ headerShown: false, animation: 'none' }}
         />
+        <Stack.Screen
+          name="DashboardScreen"
+          component={DashboardScreen}
+          options={{ headerShown: false, animation: 'none' }}
+        />
+
+
         <Stack.Screen 
           name="SignupScreen" 
           component={SignupScreen} 
@@ -41,15 +51,6 @@ export default function StackNavigator() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-<<<<<<< HEAD
-          name="SummaryScreen"
-          component={SummaryScreen}
-          options={{ headerShown: false }}
-          
-        />
-        <Stack.Screen
-=======
->>>>>>> 8b403f1a2c9e6f348f619f69929d2a8c26169aeb
           name="BedroomScreen"
           component={BedroomScreen}
           options={{ headerShown: false }}
@@ -67,11 +68,6 @@ export default function StackNavigator() {
         <Stack.Screen
           name="WashingRoomScreen"
           component={WashingRoomScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="DashboardScreen"
-          component={DashboardScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
