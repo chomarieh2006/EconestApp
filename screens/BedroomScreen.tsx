@@ -74,7 +74,11 @@ const BedroomScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+<<<<<<< HEAD
     backgroundColor: '#bad2ff', // Blue background like HomeScreen
+=======
+    backgroundColor: '#bad2ff',
+>>>>>>> 8b403f1a2c9e6f348f619f69929d2a8c26169aeb
   },
   backButton: {
     position: 'absolute',

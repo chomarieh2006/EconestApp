@@ -5,13 +5,13 @@ import HomeScreen from '../screens/HomeScreen';
 import KitchenScreen from '../screens/KitchenScreen';
 import BedroomScreen from '../screens/BedroomScreen';
 import LivingRoomScreen from '../screens/LivingRoomScreen';
-import SummaryScreen from '../screens/SummaryScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 import WashingRoomScreen from '../screens/WashingRoomScreen';
 import LoginScreen from '../screens/Login';
 import SignupScreen from '../screens/SignupScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import WeekSummaryScreen from '../screens/WeekSummaryScreen';
+import MonthSummaryScreen from '../screens/MonthSummaryScreen';
+import UsageUpdateScreen from '../screens/UsageUpdateScreen';
 import AppliancePopup from '../components/AppliancePopup';
 
 const Stack = createStackNavigator();
@@ -20,6 +20,11 @@ export default function StackNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
@@ -30,23 +35,21 @@ export default function StackNavigator() {
           component={SignupScreen} 
           options={{ headerShown: false }}
         />
-        <Stack.Screen 
-          name="Login" 
-          component={LoginScreen} 
-          options={{ headerShown: false }}
-        />
         <Stack.Screen
           name="KitchenScreen"
           component={KitchenScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
+<<<<<<< HEAD
           name="SummaryScreen"
           component={SummaryScreen}
           options={{ headerShown: false }}
           
         />
         <Stack.Screen
+=======
+>>>>>>> 8b403f1a2c9e6f348f619f69929d2a8c26169aeb
           name="BedroomScreen"
           component={BedroomScreen}
           options={{ headerShown: false }}
@@ -72,11 +75,15 @@ export default function StackNavigator() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="WeekSummaryScreen"
-          component={WeekSummaryScreen}
+          name="MonthSummaryScreen"
+          component={MonthSummaryScreen}
           options={{ headerShown: false }}
         />
-
+        <Stack.Screen
+          name="UsageUpdateScreen"
+          component={UsageUpdateScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="ApplianceModal"
           component={AppliancePopup}

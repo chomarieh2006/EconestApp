@@ -3,21 +3,29 @@ import { View, Text, TouchableOpacity, StyleSheet, FlatList, Modal } from 'react
 import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 
-const generateWeeks = (startDate, numberOfWeeks) => {
-    const weeks = [];
-    const start = new Date(startDate);
-    for (let i = 0; i < numberOfWeeks; i++) {
-      const end = new Date(start);
-      end.setDate(start.getDate() + 6);
-      const range = `${start.getMonth() + 1}/${start.getDate()}/${start.getFullYear()} - ${end.getMonth() + 1}/${end.getDate()}/${end.getFullYear()}`;
-      weeks.push(range);
-      start.setDate(start.getDate() - 7); // go back a week
-    }
-    return weeks;
-  };
+const generateMonths = (startDate, numberOfMonths) => {
+  const months = [];
+  const start = new Date(startDate);
+
+  for (let i = 0; i < numberOfMonths; i++) {
+    const year = start.getFullYear();
+    const month = start.getMonth();
+
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0); // 0th day of next month = last day of this one
+
+    const range = `${firstDay.getMonth() + 1}/${firstDay.getDate()}/${firstDay.getFullYear()} - ${lastDay.getMonth() + 1}/${lastDay.getDate()}/${lastDay.getFullYear()}`;
+    months.push(range);
+
+    // Move one month back
+    start.setMonth(start.getMonth() - 1);
+  }
+
+  return months;
+};
 
 const SummaryScreen = () => {
-    const weeks = generateWeeks('2025-04-20', 7);
+    const weeks = generateMonths('2025-05-01', 7);
   const [selectedWeek, setSelectedWeek] = useState(weeks[0]);
   const [modalVisible, setModalVisible] = useState(false);
 

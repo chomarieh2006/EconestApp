@@ -33,14 +33,14 @@ const DashboardScreen = () => {
         <Text style={styles.title}>Dashboard</Text>
 
         <View style={styles.cardRow}>
-          <TouchableOpacity style={styles.card}>
+          <TouchableOpacity onPress={() => handleCardClick("UsageUpdateScreen")} style={styles.card}>
             <Text style={styles.plus}>＋</Text>
             <Text style={styles.cardLabel}>Usage Update</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => handleCardClick("WeekSummaryScreen")} style={styles.card}>
+          <TouchableOpacity onPress={() => handleCardClick("MonthSummaryScreen")} style={styles.card}>
             <AntDesign name="barschart" size={36} color="white" />
-            <Text style={styles.cardLabel}>Week Summary</Text>
+            <Text style={styles.cardLabel}>Monthly Summary</Text>
           </TouchableOpacity>
         </View>
 
