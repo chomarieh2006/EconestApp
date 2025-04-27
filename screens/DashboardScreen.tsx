@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import BottomNavBar from '../components/taskbar';
-import { AntDesign, FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
 
-
-
+const applianceData = [
+  { name: 'Fridge', image: require('../assets/fridge.png') },
+  { name: 'Blender', image: require('../assets/blender.png') },
+  { name: 'Toaster', image: require('../assets/toaster.png') },
+  { name: 'Oven', image: require('../assets/oven.png') },
+  { name: 'Lamp', image: require('../assets/lamp.png') },
+  { name: 'TV', image: require('../assets/tv.png') },
+  { name: 'Air Conditioner', image: require('../assets/ac.png') },
+  { name: 'Washer', image: require('../assets/washer.png') },
+  { name: 'Dryer', image: require('../assets/dryer.png') },
+  { name: 'Ceiling Lamp', image: require('../assets/ceilinglamp.png') },
+];
 
 const DashboardScreen = () => {
   const navigation = useNavigation();
 
-  const handleCardClick = (room: string) => {
-    navigation.navigate(room);
+  const handleCardClick = (screen: string, applianceName?: string) => {
+    if (applianceName) {
+      navigation.navigate(screen as never, { userId: 'demoUser123', appliance: applianceName } as never);
+    } else {
+      navigation.navigate(screen as never);
+    }
   };
 
   const [goals, setGoals] = useState([
@@ -20,12 +33,11 @@ const DashboardScreen = () => {
     { text: 'Use washer only twice', completed: false },
   ]);
 
-  const toggleGoal = (index) => {
+  const toggleGoal = (index: number) => {
     const updatedGoals = [...goals];
     updatedGoals[index].completed = !updatedGoals[index].completed;
     setGoals(updatedGoals);
   };
-
 
   return (
     <View style={styles.container}>
@@ -33,12 +45,12 @@ const DashboardScreen = () => {
         <Text style={styles.title}>Dashboard</Text>
 
         <View style={styles.cardRow}>
-          <TouchableOpacity onPress={() => handleCardClick("UsageUpdateScreen")} style={styles.card}>
+          <TouchableOpacity onPress={() => handleCardClick('UsageUpdateScreen')} style={styles.card}>
             <Text style={styles.plus}>＋</Text>
             <Text style={styles.cardLabel}>Usage Update</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => handleCardClick("MonthSummaryScreen")} style={styles.card}>
+          <TouchableOpacity onPress={() => handleCardClick('MonthSummaryScreen')} style={styles.card}>
             <AntDesign name="barschart" size={36} color="white" />
             <Text style={styles.cardLabel}>Monthly Summary</Text>
           </TouchableOpacity>
@@ -50,17 +62,14 @@ const DashboardScreen = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.applianceRow}
         >
-          <Image source={require('../assets/fridge.png')} style={styles.applianceImage} />
-          <Image source={require('../assets/blender.png')} style={styles.applianceImage} />
-          <Image source={require('../assets/toaster.png')} style={styles.applianceImage} />
-          <Image source={require('../assets/oven.png')} style={styles.applianceImage} />
-          <Image source={require('../assets/lamp.png')} style={styles.applianceImage} />
-          <Image source={require('../assets/tv.png')} style={styles.applianceImage} />
-          <Image source={require('../assets/ac.png')} style={styles.applianceImage} />
-          <Image source={require('../assets/washer.png')} style={styles.applianceImage} />
-          <Image source={require('../assets/dryer.png')} style={styles.applianceImage} />
-          <Image source={require('../assets/ceilinglamp.png')} style={styles.applianceImage} />
-
+          {applianceData.map((appliance, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => handleCardClick('ApplianceModal', appliance.name)}
+            >
+              <Image source={appliance.image} style={styles.applianceImage} />
+            </TouchableOpacity>
+          ))}
         </ScrollView>
 
         <Text style={styles.sectionTitle}>Goals for the Week</Text>
@@ -85,7 +94,6 @@ const DashboardScreen = () => {
             </TouchableOpacity>
           ))}
         </View>
-
       </ScrollView>
 
       <View style={styles.taskbarWrapper}>
@@ -177,7 +185,7 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   goalBoxCompleted: {
-    backgroundColor: '#A9A9A9', // greyed out
+    backgroundColor: '#A9A9A9',
   },
   goalTextCompleted: {
     textDecorationLine: 'line-through',
