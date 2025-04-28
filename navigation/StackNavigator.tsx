@@ -23,15 +23,15 @@ export default function StackNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen 
-          name="Login" 
-          component={LoginScreen} 
-          options={{ headerShown: false }}
-        />
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
           options={{ headerShown: false, animation: 'none' }}
+        />
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="DashboardScreen"

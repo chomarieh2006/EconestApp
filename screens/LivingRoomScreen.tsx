@@ -1,17 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { getAuth } from 'firebase/auth';
+import GridBackground from '../screens/GridBackground';
 
 const LivingRoomScreen = () => {
   const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState<any | null>(null);
 
   const handleApplianceClick = (applianceName: string) => {
-    navigation.navigate('ApplianceModal', {
-      userId: 'demoUser123',
-      appliance: applianceName,
-    });
-  };
+      const auth = getAuth();
+      const user = auth.currentUser;
+    
+      if (!user) {
+        console.warn('No logged in user');
+        return;
+      }
+    
+      navigation.navigate('ApplianceModal', {
+        userId: user.uid,
+        appliance: applianceName,
+      });
+    };
 
   const handleBack = () => {
     if (navigation.canGoBack()) {
@@ -44,6 +54,7 @@ const LivingRoomScreen = () => {
       <TouchableOpacity style={styles.backButton} onPress={handleBack}>
         <Text style={styles.backText}>← Back</Text>
       </TouchableOpacity>
+      <GridBackground/>
 
       <Text style={styles.title}>Living Room</Text>
 
@@ -86,13 +97,13 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 18,
-    color: '#3E2C1D', // Consistent brown text
+    color: '#BAD2FF', // Consistent brown text
     fontWeight: '500',
   },
   title: {
-    fontSize: 28,
+    fontSize: 48,
     fontWeight: '600',
-    color: '#3E2C1D',
+    color: '#BAD2FF',
     position: 'absolute',
     top: 90,
     left: 20,

@@ -1,14 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { getAuth } from 'firebase/auth';
+import GridBackground from './GridBackground';
+import TaskBar from '../components/taskbar';
 
 const KitchenScreen = () => {
   const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState<any | null>(null);
 
   const handleApplianceClick = (applianceName: string) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+  
+    if (!user) {
+      console.warn('No logged in user');
+      return;
+    }
+  
     navigation.navigate('ApplianceModal', {
-      userId: 'demoUser123',
+      userId: user.uid,
       appliance: applianceName,
     });
   };
@@ -45,10 +56,13 @@ const KitchenScreen = () => {
 
   return (
     <View style={styles.container}>
+
       <TouchableOpacity style={styles.backButton} onPress={handleBack}>
         <Text style={styles.backText}>← Back</Text>
       </TouchableOpacity>
 
+      <GridBackground/>
+      
       <Text style={styles.title}>Kitchen</Text>
 
       <View style={styles.kitchenWrapper}>
@@ -76,6 +90,7 @@ const KitchenScreen = () => {
           <View style={styles.transparentOverlay} />
           <Animated.View style={[styles.circle, { transform: [{ scale: bounce4 }] }]} />
         </TouchableOpacity>
+
       </View>
     </View>
   );
@@ -95,13 +110,13 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 18,
-    color: '#3E2C1D', // Same brown text color as HomeScreen
+    color: '#BAD2FF', // Same brown text color as HomeScreen
     fontWeight: '500',
   },
   title: {
-    fontSize: 28,
+    fontSize: 48,
     fontWeight: '600',
-    color: '#3E2C1D',
+    color: '#BAD2FF',
     position: 'absolute',
     top: 90,
     left: 20,

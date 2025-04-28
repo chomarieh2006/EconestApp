@@ -5,6 +5,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
+import GridBackground from './GridBackground';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -40,9 +41,11 @@ const LoginScreen = () => {
       <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
         <Text style={styles.eye}>{showPassword ? '🙈' : '👁️'}</Text>
       </TouchableOpacity>
+      
       <TouchableOpacity style={styles.button} onPress={handleSignIn}>
         <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
+      
       <TouchableOpacity onPress={() => navigation.navigate('SignupScreen')}>
         <Text style={styles.link}>Don't have an account? Sign up</Text>
       </TouchableOpacity>

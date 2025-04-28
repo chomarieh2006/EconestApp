@@ -1,16 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { getAuth } from 'firebase/auth';
+import GridBackground from '../screens/GridBackground';
 
 const BedroomScreen = () => {
   const navigation = useNavigation();
 
   const handleApplianceClick = (applianceName: string) => {
-    navigation.navigate('ApplianceModal', {
-      userId: 'demoUser123',
-      appliance: applianceName,
-    });
-  };
+      const auth = getAuth();
+      const user = auth.currentUser;
+    
+      if (!user) {
+        console.warn('No logged in user');
+        return;
+      }
+    
+      navigation.navigate('ApplianceModal', {
+        userId: user.uid,
+        appliance: applianceName,
+      });
+    };
 
   const handleBack = () => {
     if (navigation.canGoBack()) {
@@ -40,6 +50,7 @@ const BedroomScreen = () => {
 
   return (
     <View style={styles.container}>
+            <GridBackground/>
       <TouchableOpacity style={styles.backButton} onPress={handleBack}>
         <Text style={styles.backText}>← Back</Text>
       </TouchableOpacity>
@@ -51,7 +62,6 @@ const BedroomScreen = () => {
           source={require('../assets/bedroom.png')}
           style={styles.bedroomImage}
         />
-
         <TouchableOpacity onPress={() => handleApplianceClick("Air Conditioner")} style={styles.airconditionerTouchableArea}>
           <View style={styles.transparentOverlay} />
           <Animated.View style={[styles.circle, { transform: [{ scale: bounce1 }] }]} />
@@ -85,13 +95,13 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 18,
-    color: '#3E2C1D',
+    color: '#BAD2FF',
     fontWeight: '500',
   },
   title: {
-    fontSize: 28,
+    fontSize: 48,
     fontWeight: '600',
-    color: '#3E2C1D',
+    color: '#BAD2FF',
     position: 'absolute',
     top: 90,
     left: 20,

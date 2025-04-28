@@ -58,7 +58,7 @@ const BottomNavBar = () => {
 const styles = StyleSheet.create({
   navbar: {
     flexDirection: 'row',
-    backgroundColor: '#0046b5ff',
+    backgroundColor: '#4F85DE',
     borderRadius: 30,
     justifyContent: 'space-around',
     alignItems: 'center',
