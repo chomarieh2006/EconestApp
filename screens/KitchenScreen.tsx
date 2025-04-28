@@ -64,13 +64,14 @@ const KitchenScreen = () => {
       <GridBackground/>
       
       <Text style={styles.title}>Kitchen</Text>
-
+      <View style={styles.taskbarWrapper}>
+        <TaskBar />
+      </View>
       <View style={styles.kitchenWrapper}>
         <Image
           source={require('../assets/kitchen.png')}
           style={styles.kitchenImage}
         />
-
         <TouchableOpacity onPress={() => handleApplianceClick("Fridge")} style={styles.fridgeTouchableArea}>
           <View style={styles.transparentOverlay} />
           <Animated.View style={[styles.circle, { transform: [{ scale: bounce1 }] }]} />
@@ -121,6 +122,15 @@ const styles = StyleSheet.create({
     top: 90,
     left: 20,
   },
+  taskBar: {
+    position: 'absolute',
+    bottom: 10,
+    left: '5%',
+    width: '90%',
+    height: 120, // Increased height
+    paddingBottom: 10, // Slightly more padding
+    resizeMode: 'contain',
+  },
   kitchenWrapper: {
     alignSelf: 'center',
     width: 360,
@@ -132,6 +142,13 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     resizeMode: 'contain',
+  },
+  taskbarWrapper: {
+    position: 'absolute',
+    bottom: 0,
+    left: '5%',
+    width: '90%',
+    backgroundColor: '#4F85DE', // ✅ correct property
   },
   fridgeTouchableArea: {
     position: 'absolute',

@@ -3,6 +3,7 @@ import { View, Image, Text, TouchableOpacity, StyleSheet, Animated } from 'react
 import { useNavigation } from '@react-navigation/native';
 import { getAuth } from 'firebase/auth';
 import GridBackground from '../screens/GridBackground';
+import TaskBar from '../components/taskbar';
 
 const LivingRoomScreen = () => {
   const navigation = useNavigation();
@@ -57,7 +58,9 @@ const LivingRoomScreen = () => {
       <GridBackground/>
 
       <Text style={styles.title}>Living Room</Text>
-
+      <View style={styles.taskbarWrapper}>
+        <TaskBar />
+      </View>
       <View style={styles.livingRoomWrapper}>
         <Image
           source={require('../assets/livingroom.png')}
@@ -145,6 +148,12 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'transparent',
   },
+  taskbarWrapper: {
+    position: 'absolute',
+    bottom: 0,
+    left: '5%',
+    width: '90%',
+  },
   circle: {
     width: 12,
     height: 12,
@@ -159,6 +168,15 @@ const styles = StyleSheet.create({
     left: 50,
     zIndex: 20,
     alignItems: 'flex-end',
+  },
+  taskBar: {
+    position: 'absolute',
+    bottom: 10,
+    left: '5%',
+    width: '90%',
+    height: 120, // Increased height
+    paddingBottom: 10, // Slightly more padding
+    resizeMode: 'contain',
   },
   popupImage: {
     width: 200,

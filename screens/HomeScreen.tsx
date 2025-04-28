@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   },
   taskbarWrapper: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 0,
     left: '5%',
     width: '90%',
     backgroundColor: '#4F85DE', // ✅ correct property

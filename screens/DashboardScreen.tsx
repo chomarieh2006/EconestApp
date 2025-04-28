@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
   },
   taskbarWrapper: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 0,
     left: '5%',
     width: '90%',
   },

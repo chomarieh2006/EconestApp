@@ -3,6 +3,7 @@ import { View, Image, Text, TouchableOpacity, StyleSheet, Animated } from 'react
 import { useNavigation } from '@react-navigation/native';
 import { getAuth } from 'firebase/auth';
 import GridBackground from '../screens/GridBackground';
+import TaskBar from '../components/taskbar';
 
 const BedroomScreen = () => {
   const navigation = useNavigation();
@@ -56,7 +57,9 @@ const BedroomScreen = () => {
       </TouchableOpacity>
 
       <Text style={styles.title}>Bedroom</Text>
-
+      <View style={styles.taskbarWrapper}>
+        <TaskBar />
+      </View>
       <View style={styles.bedroomWrapper}>
         <Image
           source={require('../assets/bedroom.png')}
@@ -150,6 +153,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     alignSelf: 'center',
     marginTop: 5,
+  },
+  taskbarWrapper: {
+    position: 'absolute',
+    bottom: 0,
+    left: '5%',
+    width: '90%',
+    backgroundColor: '#4F85DE', // ✅ correct property
   },
 });
 

@@ -3,6 +3,7 @@ import { View, Image, Text, TouchableOpacity, StyleSheet, Animated } from 'react
 import { useNavigation } from '@react-navigation/native';
 import { getAuth } from 'firebase/auth';
 import GridBackground from '../screens/GridBackground';
+import TaskBar from '../components/taskbar';
 
 const WashingRoomScreen = () => {
   const navigation = useNavigation();
@@ -57,7 +58,9 @@ const WashingRoomScreen = () => {
       </TouchableOpacity>
 
       <Text style={styles.title}>Laundry Room</Text>
-
+      <View style={styles.taskbarWrapper}>
+        <TaskBar />
+      </View>
       <View style={styles.laundryWrapper}>
         <Image
           source={require('../assets/laundryroom.png')}
@@ -177,6 +180,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 2,
+  },
+  taskbarWrapper: {
+    position: 'absolute',
+    bottom: 0,
+    left: '5%',
+    width: '90%',
+    backgroundColor: '#4F85DE', // ✅ correct property
   },
   closeText: {
     fontSize: 14,
